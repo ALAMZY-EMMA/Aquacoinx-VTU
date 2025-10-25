@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaCoinX VTU Dashboard - TON Blockchain</title>
+    <link rel="stylesheet" href="vtu-styles.css">
+    <!-- TonConnect UI SDK -->
+    <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+    <!-- TON Core SDK -->
+    <script src="https://unpkg.com/@ton/core@latest/dist/index.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo-section">
+                <div class="logo">
+                    <!-- <span class="logo-icon">🪙</span> -->
+                    <span class="logo-text">Aqua<span class="accent">CoinX</span></span>
+                </div>
+                <!-- <span class="subtitle">VTU Dashboard</span> -->
+            </div>
+            
+            <!-- Wallet Connection -->
+            <div class="wallet-section">
+                <div id="wallet-info" class="wallet-info hidden">
+                    <div class="balance-display">
+                        <span class="balance-label">AQCNX Balance</span>
+                        <span id="aqcnx-balance" class="balance-amount">0</span>
+                    </div>
+                    <div class="wallet-address">
+                        <span id="wallet-address">Not Connected</span>
+                        <button id="disconnect-btn" class="disconnect-btn">Disconnect</button>
+                    </div>
+                </div>
+                <button id="connect-wallet" class="connect-btn">
+                    Connect Wallet
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Service Tabs -->
+            <div class="services-container">
+                <div class="tab-navigation">
+                    <button class="tab-btn active" data-tab="airtime">
+                        📱 Airtime
+                    </button>
+                    <button class="tab-btn" data-tab="data">
+                        📶 Data Bundle
+                    </button>
+                    <button class="tab-btn" data-tab="electricity">
+                        ⚡ Electricity
+                    </button>
+                    <button class="tab-btn" data-tab="tv">
+                        📺 TV Subscription
+                    </button>
+                </div>
+
+                <!-- Service Forms -->
+                <div class="tab-content">
+                    <!-- Airtime Tab -->
+                    <div id="airtime-tab" class="service-form active">
+                        <h3 class="form-title">Airtime Recharge</h3>
+                        <form id="airtime-form" class="vtu-form">
+                            <div class="form-group">
+                                <label for="airtime-phone">Phone Number</label>
+                                <input type="tel" id="airtime-phone" placeholder="08012345678" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="airtime-network">Network</label>
+                                <select id="airtime-network" required>
+                                    <option value="">Select Network</option>
+                                    <option value="mtn">MTN</option>
+                                    <option value="glo">Glo</option>
+                                    <option value="airtel">Airtel</option>
+                                    <option value="9mobile">9mobile</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="airtime-amount">Amount (AQCNX)</label>
+                                <input type="number" id="airtime-amount" placeholder="100" min="50" required>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                Pay with AQCNX
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Data Bundle Tab -->
+                    <div id="data-tab" class="service-form">
+                        <h3 class="form-title">Data Bundle</h3>
+                        <form id="data-form" class="vtu-form">
+                            <div class="form-group">
+                                <label for="data-phone">Phone Number</label>
+                                <input type="tel" id="data-phone" placeholder="08012345678" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="data-network">Network</label>
+                                <select id="data-network" required>
+                                    <option value="">Select Network</option>
+                                    <option value="mtn">MTN</option>
+                                    <option value="glo">Glo</option>
+                                    <option value="airtel">Airtel</option>
+                                    <option value="9mobile">9mobile</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="data-plan">Data Plan</label>
+                                <select id="data-plan" required>
+                                    <option value="">Select Plan</option>
+                                    <option value="100mb-50">100MB - 50 AQCNX</option>
+                                    <option value="200mb-100">200MB - 100 AQCNX</option>
+                                    <option value="500mb-150">500MB - 150 AQCNX</option>
+                                    <option value="750mb-200">750MB - 200 AQCNX</option>
+                                    <option value="1gb-300">1GB - 300 AQCNX</option>
+                                    <option value="1.5gb-450">1.5GB - 450 AQCNX</option>
+                                    <option value="2gb-600">2GB - 600 AQCNX</option>
+                                    <option value="3gb-900">3GB - 900 AQCNX</option>
+                                    <option value="4gb-1200">4GB - 1200 AQCNX</option>
+                                    <option value="5gb-1500">5GB - 1500 AQCNX</option>
+                                    <option value="7gb-2100">7GB - 2100 AQCNX</option>
+                                    <option value="10gb-3000">10GB - 3000 AQCNX</option>
+                                    <option value="15gb-4500">15GB - 4500 AQCNX</option>
+                                    <option value="20gb-6000">20GB - 6000 AQCNX</option>
+                                    <option value="30gb-9000">30GB - 9000 AQCNX</option>
+                                    <option value="50gb-15000">50GB - 15000 AQCNX</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                Pay with AQCNX
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Electricity Tab -->
+                    <div id="electricity-tab" class="service-form">
+                        <h3 class="form-title">Electricity Bill</h3>
+                        <form id="electricity-form" class="vtu-form">
+                            <div class="form-group">
+                                <label for="meter-number">Meter Number</label>
+                                <input type="text" id="meter-number" placeholder="12345678901" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="disco">Distribution Company</label>
+                                <select id="disco" required>
+                                    <option value="">Select DISCO</option>
+                                    <option value="eko">Eko Electric</option>
+                                    <option value="ikeja">Ikeja Electric</option>
+                                    <option value="abuja">Abuja Electric</option>
+                                    <option value="kano">Kano Electric</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="electricity-amount">Amount (AQCNX)</label>
+                                <input type="number" id="electricity-amount" placeholder="1000" min="500" required>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                Pay with AQCNX
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- TV Subscription Tab -->
+                    <div id="tv-tab" class="service-form">
+                        <h3 class="form-title">TV Subscription</h3>
+                        <form id="tv-form" class="vtu-form">
+                            <div class="form-group">
+                                <label for="smartcard-number">Smartcard Number</label>
+                                <input type="text" id="smartcard-number" placeholder="1234567890" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tv-provider">TV Provider</label>
+                                <select id="tv-provider" required>
+                                    <option value="">Select Provider</option>
+                                    <option value="dstv">DSTV</option>
+                                    <option value="gotv">GOTV</option>
+                                    <option value="startimes">StarTimes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tv-package">Package</label>
+                                <select id="tv-package" required>
+                                    <option value="">Select Package</option>
+                                    <option value="basic-1800">Basic - 1800 AQCNX</option>
+                                    <option value="family-4000">Family - 4000 AQCNX</option>
+                                    <option value="premium-6800">Premium - 6800 AQCNX</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                Pay with AQCNX
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction History -->
+            <div class="history-section">
+                <h3 class="section-title">Transaction History</h3>
+                <div id="transaction-history" class="transaction-list">
+                    <div class="empty-state">
+                        <span>No transactions yet</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Transaction</h3>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="transaction-details">
+                    <div class="detail-row">
+                        <span>Service:</span>
+                        <span id="confirm-service">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Amount:</span>
+                        <span id="confirm-amount">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Gas Fee:</span>
+                        <span id="gas-fee">~0.05 TON</span>
+                    </div>
+                    <div class="detail-row total">
+                        <span>Total:</span>
+                        <span id="total-amount">-</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" id="cancel-transaction">Cancel</button>
+                <button class="confirm-btn" id="confirm-transaction">Confirm Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Modal -->
+    <div id="status-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="status-title">Transaction Status</h3>
+            </div>
+            <div class="modal-body">
+                <div class="status-content">
+                    <div id="status-icon" class="status-icon">⏳</div>
+                    <div id="status-message" class="status-message">Processing transaction...</div>
+                    <div id="transaction-hash" class="transaction-hash"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="close-btn" id="close-status-modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="vtu-dashboard.js"></script>
+</body>
+</html>
